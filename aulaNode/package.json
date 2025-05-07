@@ -1,0 +1,20 @@
+{
+  "name": "nodepw1",
+  "version": "1.0.0",
+  "description": "exercicio 01 da aula de pweb1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "r1skin",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "express-generator": "^4.16.1",
+    "http": "^0.0.1-security",
+    "nodemon": "^3.1.10"
+  }
+}
