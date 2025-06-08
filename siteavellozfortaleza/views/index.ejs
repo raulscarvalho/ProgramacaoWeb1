@@ -1,16 +1,68 @@
 <%- include('./partials/header') %>
   <main>
-    <div class="ui segment">
-      <h1>Index Route</h1>
-      <p>This is the INDEX route</p>
+    <section id="feed">
+      <div id="carouselFeed" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2700"
+        style="height: 650px;">
+        <div class="carousel-inner" style="height: 650px;">
+          <div class="carousel-item active" style="height: 650px;">
+            <img src="../images/az160/az160_1.jpg" class="d-block w-100 h-100" alt="Imagem 1"
+              style="object-fit: cover;">
+          </div>
+          <div class="carousel-item" style="height: 650px;">
+            <img src="../images/az1/az1_2.webp" class="d-block w-100 h-100" alt="Imagem 2" style="object-fit: cover;">
+          </div>
+          <div class="carousel-item" style="height: 650px;">
+            <img src="../images/az1/az1_1.webp" class="d-block w-100 h-100" alt="Imagem 3" style="object-fit: cover;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cards" class="container my-5">
+  <h2 class="text-center mb-4" style="color: #102A6A; font-weight: bold; font-size: 2.5rem;">
+    ESCOLHA A SUA!
+  </h2>
+  <div class="row">
+    <div class="col-md-4 mb-4">
+      <div class="card text-center border-0">
+        <img src="../../images/az1/az1-preta-home.png" class="card-img-top" alt="AZ1">
+        <div class="card-body">
+          <h5 class="card-title fs-4">
+            <a href="/modelos" class="stretched-link text-decoration-underline text-dark fs-3">AZ1</a>
+          </h5>
+        </div>
+      </div>
     </div>
+    <div class="col-md-4 mb-4">
+      <div class="card text-center border-0">
+        <img src="../../images/az1/az1-preta-home.png" class="card-img-top" alt="AZ125">
+        <div class="card-body">
+          <h5 class="card-title fs-4">
+            <a href="/modelos" class="stretched-link text-decoration-underline text-dark fs-3">AZ125</a>
+          </h5>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card text-center border-0">
+        <img src="../../images/az160/AZUL-LATERAL-DIREITA01x-1.png" class="card-img-top" alt="AZ160 xtreme">
+        <div class="card-body">
+          <h5 class="card-title fs-4">
+            <a href="/modelos" class="stretched-link text-decoration-underline text-dark fs-3">AZ160 xtreme</a>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
   </main>
 
-    <footer>
-      <%- include('./partials/footer') %>
-    </footer>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <footer>
+    <%- include('./partials/footer') %>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 
   </html>
