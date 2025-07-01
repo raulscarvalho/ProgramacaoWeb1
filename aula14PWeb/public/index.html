@@ -1,23 +1,49 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Busca Astro NASA</title>
+  <title>Imagens NASA - Astros sem Copyright</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container-sm {
+      max-width: 600px;
+    }
+
+    #nasaCarousel {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .carousel-item img {
+      max-height: 500px;
+      object-fit: contain;
+    }
+  </style>
 </head>
-<body class="p-4">
 
-  <h1>Buscar imagens da NASA APOD</h1>
+<body>
 
-  <form id="searchForm" class="mb-4">
-    <div class="input-group">
-      <input type="text" id="astroInput" class="form-control" placeholder="Digite o nome do astro (ex: moon)" required />
-      <button class="btn btn-primary" type="submit">Buscar</button>
-    </div>
-  </form>
+  <div class="container-sm text-center mt-5">
+    <h2 class="mb-4">Imagens da NASA (sem copyright)</h2>
 
-  <div id="results"></div>
+    <form id="searchForm" class="mb-4">
+      <div class="input-group">
+        <input type="text" id="astroInput" class="form-control" placeholder="Digite o nome do astro (ex: moon)"
+          required />
+        <button class="btn btn-primary" type="submit">Buscar</button>
+      </div>
+    </form>
+
+    <div id="results" class="mt-4"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     const form = document.getElementById('searchForm');
@@ -29,7 +55,7 @@
       const astro = document.getElementById('astroInput').value.trim();
       if (!astro) return;
 
-      resultsDiv.innerHTML = '<p>Carregando...</p>';
+      resultsDiv.innerHTML = '<p class="text-secondary">Carregando imagens...</p>';
 
       try {
         const res = await fetch('/search', {
@@ -43,26 +69,43 @@
         const data = await res.json();
 
         if (data.length === 0) {
-          resultsDiv.innerHTML = `<p>Nenhum resultado encontrado para "<strong>${astro}</strong>"</p>`;
+          resultsDiv.innerHTML = `<p class="text-danger">Nenhum resultado encontrado para "<strong>${astro}</strong>".</p>`;
           return;
         }
 
-        resultsDiv.innerHTML = data.map(item => `
-          <div class="card mb-3">
-            <img src="${item.url}" class="card-img-top" alt="${item.title}" />
-            <div class="card-body">
-              <h5 class="card-title">${item.title}</h5>
-              <p class="card-text">${item.explanation}</p>
-              <p class="card-text"><small class="text-muted">${item.date}</small></p>
-            </div>
-          </div>
-        `).join('');
+        const carouselId = 'nasaCarousel';
 
+        const indicators = data.map((_, i) => `
+          <button type="button" data-bs-target="#${carouselId}" data-bs-slide-to="${i}" ${i === 0 ? 'class="active"' : ''
+          } aria-label="Slide ${i + 1}"></button>`).join('');
+
+        const slides = data.map((item, i) => `
+          <div class="carousel-item${i === 0 ? ' active' : ''}">
+            <img src="${item.url}" class="d-block w-100" alt="${item.title}" />
+            <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-1">
+              <small><strong>${item.title}</strong> – ${item.date}</small>
+            </div>
+          </div>`).join('');
+
+        resultsDiv.innerHTML = `
+          <div id="${carouselId}" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">${indicators}</div>
+            <div class="carousel-inner">${slides}</div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#${carouselId}" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#${carouselId}" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Próximo</span>
+            </button>
+          </div>
+        `;
       } catch (error) {
         resultsDiv.innerHTML = '<p class="text-danger">Erro ao buscar dados.</p>';
       }
     });
   </script>
-
 </body>
+
 </html>
